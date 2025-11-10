@@ -122,8 +122,13 @@ class RecipeServiceTest {
         @DisplayName("propagates repository failure (thenThrow)")
         void propagatesRepositoryFailure() {
             // TODO:
-            // when(recipeRepository.save(any())).thenThrow(new IllegalStateException("DB down"))
-            // assertThrows on recipeService.addRecipe(...)
+             when(recipeRepository.save(any()))
+            .thenThrow(new IllegalStateException("DB down"));
+
+            assertThrows(IllegalStateException.class, ()->{
+                recipeService.addRecipe(newRecipeNoId());
+            });
+
 
         }
     }
@@ -138,7 +143,7 @@ class RecipeServiceTest {
         @DisplayName("returns list from repository")
         void returnsList() {
             // TODO:
-            // when(recipeRepository.findAll()).thenReturn(List.of(...))
+             when(recipeRepository.findAll()).thenReturn(List.of(getAllRecipes()));
             // assert same size/content; verify(findAll)
 
         }
