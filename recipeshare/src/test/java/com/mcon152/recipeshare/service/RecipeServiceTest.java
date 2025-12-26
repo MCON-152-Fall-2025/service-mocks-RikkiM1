@@ -122,14 +122,14 @@ class RecipeServiceTest {
         @DisplayName("propagates repository failure (thenThrow)")
         void propagatesRepositoryFailure() {
             // TODO:
-             when(recipeRepository.save(any()))
-            .thenThrow(new IllegalStateException("DB down"));
+            when(recipeRepository.save(any()))
+                    .thenThrow(new IllegalStateException("DB down"));
 
-            assertThrows(IllegalStateException.class, ()->{
+            assertThrows(IllegalStateException.class, () -> {
                 recipeService.addRecipe(newRecipeNoId());
             });
 
-
+            verify(recipeRepository).save(any());
         }
     }
 
